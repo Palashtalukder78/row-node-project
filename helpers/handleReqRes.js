@@ -8,6 +8,8 @@
 //Dependency
 const url = require("url");
 const { StringDecoder } = require("string_decoder");
+const routes = require("../routes");
+const { notFoundHandler } = require("../handlers/routeHandler/notFoundHandler");
 //Module schaffolding
 const handler = {};
 
@@ -18,10 +20,32 @@ handler.handleReqRes = (req, res) => {
   const parseUrl = url.parse(req.url, true);
 
   const path = parseUrl.pathname;
-  const trimedPath = path.replace(/^\/+|\/+$/g, "");
+  const trimmedPath = path.replace(/^\/+|\/+$/g, "");
   const method = req.method.toLowerCase();
   const queryStringObject = parseUrl.query;
   const headerObject = req.headers;
+
+  const requestProperties = {
+    parseUrl,
+    path,
+    trimmedPath,
+    method,
+    queryStringObject,
+    headerObject,
+  };
+  const choosenHandler = routes[trimmedPath]
+    ? routes[trimmedPath]
+    : notFoundHandler;
+  choosenHandler(requestProperties, (statusCode, payload)=>{
+    statusCode = typeof(statusCode) === 'number' ? statusCode : 500;
+    payload = typeof(payload) === 'object' ? payload : {};
+
+    const payloadString = JSON.stringify(payload);
+
+    //Return the final response
+    res.writeHead(statusCode);
+    res.end(payloadString)
+  })
 
   const decoder = new StringDecoder("utf-8");
   let realData = "";
