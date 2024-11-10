@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Palash Talukder",
   "license": "ISC",
-  "description": ""
+  "description": "Authentication system, A restful api for monitoring down time of user defined links"
 }
