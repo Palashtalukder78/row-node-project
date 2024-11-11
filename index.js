@@ -7,22 +7,20 @@
 
 //Dependency
 const http = require("http");
-
 const { handleReqRes } = require("./helpers/handleReqRes");
+const environment = require("./helpers/environments");
 
 //app object- module scaffoldinhg
-const app = {};
+const app = {}; 
 
 //configuration
-app.config = {
-  port: 4000,
-};
+
 
 //create server
 app.createServer = () => {
   const server = http.createServer(app.handleReqRes);
-  server.listen(app.config.port, () => {
-    console.log(`Listinging to port numbder ${app.config.port}`);
+  server.listen(environment.port, () => {
+    console.log(`Listinging to port numbder ${environment.port}`);
   });
 };
 

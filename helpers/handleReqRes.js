@@ -36,16 +36,7 @@ handler.handleReqRes = (req, res) => {
   const choosenHandler = routes[trimmedPath]
     ? routes[trimmedPath]
     : notFoundHandler;
-  choosenHandler(requestProperties, (statusCode, payload)=>{
-    statusCode = typeof(statusCode) === 'number' ? statusCode : 500;
-    payload = typeof(payload) === 'object' ? payload : {};
-
-    const payloadString = JSON.stringify(payload);
-
-    //Return the final response
-    res.writeHead(statusCode);
-    res.end(payloadString)
-  })
+  
 
   const decoder = new StringDecoder("utf-8");
   let realData = "";
@@ -54,7 +45,16 @@ handler.handleReqRes = (req, res) => {
   });
   req.on("end", () => {
     realData += decoder.end();
-    console.log(realData);
+    choosenHandler(requestProperties, (statusCode, payload) => {
+      statusCode = typeof statusCode === "number" ? statusCode : 500;
+      payload = typeof payload === "object" ? payload : {};
+
+      const payloadString = JSON.stringify(payload);
+
+      //Return the final response
+      res.writeHead(statusCode);
+      res.end(payloadString);
+    });
     //response handle
     res.end("Hello Developer, Palash Talukder");
   });
