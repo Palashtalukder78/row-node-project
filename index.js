@@ -15,10 +15,9 @@ const data = require("./lib/data");
 const app = {};
 
 //testing file system
-data.update(
+data.delete(
   "test",
   "newfile",
-  { name: "Bangladesh", language: "Bangla" },
   (err) => {
     console.log(err);
   }
