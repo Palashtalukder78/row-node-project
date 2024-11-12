@@ -9,15 +9,20 @@
 const http = require("http");
 const { handleReqRes } = require("./helpers/handleReqRes");
 const environment = require("./helpers/environments");
-const data = require('./lib/data')
+const data = require("./lib/data");
 
 //app object- module scaffoldinhg
-const app = {}; 
+const app = {};
 
 //testing file system
-data.read('test', 'newfile', (err, data)=>{
-  console.log(err, data)
-})
+data.update(
+  "test",
+  "newfile",
+  { name: "Bangladesh", language: "Bangla" },
+  (err) => {
+    console.log(err);
+  }
+);
 
 //create server
 app.createServer = () => {
