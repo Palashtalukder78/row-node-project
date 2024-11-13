@@ -14,14 +14,14 @@ const data = require("./lib/data");
 //app object- module scaffoldinhg
 const app = {};
 
-//testing file system
-data.delete(
-  "test",
-  "newfile",
-  (err) => {
-    console.log(err);
-  }
-);
+// //testing file system
+// data.delete(
+//   "test",
+//   "newfile",
+//   (err) => {
+//     console.log(err);
+//   }
+// );
 
 //create server
 app.createServer = () => {
